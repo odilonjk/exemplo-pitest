@@ -4,6 +4,7 @@ package com.wordpress.krogercode.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.wordpress.krogercode.classe.Veiculo;
@@ -38,6 +39,9 @@ public class VeiculoTest {
 		
 		jimmy.adicionarCargaPortaMalas(13);
 		
+		// Adicionado para matar o mutante
+		assertEquals(jimmy.getCapacidadeDisponivelPortaMalas(), 100);
+		
 	}
 
 	@Test
@@ -49,6 +53,14 @@ public class VeiculoTest {
 		
 		Veiculo caravan = new Veiculo(modelo, marca, capacidadePortaMalas);
 
+		//	Adicionado para matar o mutante
+		try {
+			caravan.adicionarCargaPortaMalas(774);
+		} 
+		catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
 		try {
 			caravan.adicionarCargaPortaMalas(800);
 		} 
@@ -57,6 +69,9 @@ public class VeiculoTest {
 					.equals("Erro: Excesso de carga. Espaço disponível: " 
 							+ caravan.getCapacidadeDisponivelPortaMalas()));
 		}
+		
+		// Adicionado para matar o mutante
+		assertEquals(caravan.getCapacidadeDisponivelPortaMalas(), 0);
 		
 	}
 }
